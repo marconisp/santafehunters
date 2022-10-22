@@ -1,0 +1,62 @@
+enum TipoReuniao {
+ DELIBERATIVA, INFORMATIVA, AVALIATIVA, CRIATIVA, FEEDBACK, RESULTADOS
+}
+
+@clientRootFolder(reuniao)
+entity Reuniao {
+ nome String maxlength(50) required,
+ descricao String maxlength(1000) required,
+ data LocalDate required,
+ dataInicio LocalDate,
+ dataFim    LocalDate,
+ horaInicio String maxlength(5),
+ horaFim    String maxlength(5),
+ TipoReuniao TipoReuniao,
+ obs String maxlength(100)
+}
+relationship OneToMany {
+ Reuniao{pautas} to Pauta,
+ Reuniao{decisoes} to Decisao,
+ Reuniao{acoes} to Acao,
+ Reuniao{participantes} to Participante
+}
+
+@clientRootFolder(reuniao)
+entity Pauta {
+ nome String maxlength(50) required,
+ obs String maxlength(100)
+}
+
+@clientRootFolder(reuniao)
+entity Decisao {
+ nome String maxlength(50) required,
+ obs String maxlength(100)
+}
+relationship OneToMany {
+ Decisao{votoSim} to VotoSimDecisao,
+ Decisao{votoNao} to VotoNaoDecisao
+}
+
+@clientRootFolder(reuniao)
+entity VotoSimDecisao {
+ nome String maxlength(50) required,
+ obs String maxlength(100)
+}
+
+@clientRootFolder(reuniao)
+entity VotoNaoDecisao {
+ nome String maxlength(50) required,
+ obs String maxlength(100)
+}
+
+@clientRootFolder(reuniao)
+entity Acao {
+ nome String maxlength(50) required,
+ obs String maxlength(100)
+}
+
+@clientRootFolder(reuniao)
+entity Participante {
+ nome String maxlength(50) required,
+ obs String maxlength(100)
+}
